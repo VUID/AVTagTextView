@@ -15,5 +15,6 @@
 - (NSString *)stringWithCheckingResult:(NSTextCheckingResult *)result;
 - (NSString *)endOfStringHashtag;
 - (NSArray *)hashTags;
+- (NSArray *)tags;
 
 @end

@@ -34,12 +34,13 @@
     return nil;
 }
 
-- (NSArray *)hashTags{
+- (NSArray *)searchForOccurrencesOf:(NSString *)item{
     NSMutableArray *results = [NSMutableArray array];
     if(self) {
         //TODO: exclude # with a regex
+		NSString *regexStr = [NSString stringWithFormat:@"%@(\\w+)", item];
         NSRegularExpression *regex = [NSRegularExpression
-                                      regularExpressionWithPattern:@"#(\\w+)"
+                                      regularExpressionWithPattern:regexStr
                                       options:NSRegularExpressionCaseInsensitive
                                       error:nil];
         
@@ -58,5 +59,12 @@
     return results;
 }
 
+- (NSArray *)hashTags {
+	return [self searchForOccurrencesOf:@"#"];
+}
+
+- (NSArray *)tags {
+	return [self searchForOccurrencesOf:@"@"];
+}
 
 @end
