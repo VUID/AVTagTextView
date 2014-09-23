@@ -72,6 +72,21 @@ static const char *kHashTagsTableViewHeightKey = "hashTagsTableViewHeightKey";
     return height;
 }
 
+static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
+
+- (void)setHashTagsTableViewOffset:(CGFloat)hashTagsTableViewOffset {
+	objc_setAssociatedObject(self, kHashTagsTableViewOffsetKey, @(hashTagsTableViewOffset), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CGFloat)hashTagsTableViewOffset{
+	CGFloat offset = [objc_getAssociatedObject(self, kHashTagsTableViewOffsetKey) floatValue];
+	if (offset <= 0) {
+		offset = DEFAULT_TABLE_VIEW_OFFSET;
+	}
+	
+	return offset;
+}
+
 - (NSArray *)hashTags{
     return [self.text hashTags];
 }
@@ -96,7 +111,7 @@ static const char *kHashTagsTableViewHeightKey = "hashTagsTableViewHeightKey";
         
         CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
         CGRect tableViewFrame = CGRectMake(0,
-                                           keyboardRect.origin.y - keyboardRect.size.height - self.hashTagsTableViewHeight,
+                                           keyboardRect.origin.y - keyboardRect.size.height - self.hashTagsTableViewHeight - self.hashTagsTableViewOffset,
                                            keyboardRect.size.width,
                                            self.hashTagsTableViewHeight);
         

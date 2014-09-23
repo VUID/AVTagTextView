@@ -10,6 +10,7 @@
 #import "AVTagTableViewControllerProtocol.h"
 
 #define DEFAULT_TABLE_VIEW_HEIGHT 100.
+#define DEFAULT_TABLE_VIEW_OFFSET 0.
 
 /*****************************************************/
 //             AVTagTextViewDelegate
@@ -48,6 +49,12 @@
  * to DEFAULT_TABLE_VIEW_HEIGHT
  */
 @property (nonatomic, assign) CGFloat hashTagsTableViewHeight;
+
+/**
+ * The offset distance to set the table above the keyboard.
+ * Defaults to DEFAULT_TABLE_VIEW_OFFSET
+ */
+@property (nonatomic, assign) CGFloat hashTagsTableViewOffset;
 
 /**
  * Hash tags, encountered in the current TextView's text. 
