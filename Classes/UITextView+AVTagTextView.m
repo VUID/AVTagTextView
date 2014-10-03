@@ -111,7 +111,7 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
         
         CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
         CGRect tableViewFrame = CGRectMake(0,
-                                           keyboardRect.origin.y - keyboardRect.size.height - self.hashTagsTableViewHeight - self.hashTagsTableViewOffset,
+                                           keyboardRect.origin.y - self.hashTagsTableViewHeight - self.hashTagsTableViewOffset,
                                            keyboardRect.size.width,
                                            self.hashTagsTableViewHeight);
         
@@ -162,10 +162,12 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
     NSString *endHashTag = [input endOfStringHashtag];
     if(endHashTag.length > 0 &&
        input.length > 0 &&
-       [self.hashTagsDelegate respondsToSelector:@selector(tagsForQuery:)]) {
-        
-        NSArray *hashTags = [self.hashTagsDelegate tagsForQuery:endHashTag];
-        [self updateHashTagsTableViewControllerWithTags:hashTags];
+       [self.hashTagsDelegate respondsToSelector:@selector(performSearchForTextView:query:withCompletionHandler:)]) {
+        [self.hashTagsDelegate performSearchForTextView:self query:endHashTag withCompletionHandler:^(NSArray *results) {
+			[self updateHashTagsTableViewControllerWithTags:results];
+		}];
+        //NSArray *hashTags = [self.hashTagsDelegate tagsForQuery:endHashTag];
+        //[self updateHashTagsTableViewControllerWithTags:hashTags];
     }
     else{
         self.hashTagsTableViewController.view.hidden = YES;

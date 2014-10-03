@@ -25,6 +25,7 @@
  * the hashTagsTableViewController
  */
 - (NSArray *)tagsForQuery:(NSString *)query;
+- (void)performSearchForTextView:(UITextView *)textView query:(NSString *)query withCompletionHandler:(void (^)(NSArray *))completionHandler;
 @end
 
 /*****************************************************/
