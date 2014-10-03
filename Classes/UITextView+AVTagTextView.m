@@ -148,7 +148,7 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
     NSString *replaceString = [NSString stringWithFormat:@"#%@ ", tag];
     NSMutableString *mutableText = [NSMutableString stringWithString:self.text];
     
-    [[NSString endOfStringHashtagRegex] replaceMatchesInString:mutableText options:0 range:[self.text wholeStringRange] withTemplate:replaceString];
+    [[NSString endOfStringTagRegex] replaceMatchesInString:mutableText options:0 range:[self.text wholeStringRange] withTemplate:replaceString];
     self.text = mutableText;
     
     self.hashTagsTableViewController.view.hidden = YES;
@@ -159,15 +159,17 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
 /*****************************************************/
 
 - (void)reactOnUserInput:(NSString *)input{
-    NSString *endHashTag = [input endOfStringHashtag];
-    if(endHashTag.length > 0 &&
+	NSDictionary *tagInfo = [input endOfStringTag];
+	NSString *tag = [tagInfo objectForKey:@"tag"];
+	NSString *typeStr = [tagInfo objectForKey:@"type"];
+	AVTagTextViewTagTypes type = [typeStr isEqualToString:@"#"]?AVTagTextViewHashtags:AVTagTextViewTags;
+	
+    if(tagInfo != nil &&
        input.length > 0 &&
-       [self.hashTagsDelegate respondsToSelector:@selector(performSearchForTextView:query:withCompletionHandler:)]) {
-        [self.hashTagsDelegate performSearchForTextView:self query:endHashTag withCompletionHandler:^(NSArray *results) {
+       [self.hashTagsDelegate respondsToSelector:@selector(performSearchForTextView:type:query:withCompletionHandler:)]) {
+		[self.hashTagsDelegate performSearchForTextView:self type:type query:tag withCompletionHandler:^(NSArray *results) {
 			[self updateHashTagsTableViewControllerWithTags:results];
 		}];
-        //NSArray *hashTags = [self.hashTagsDelegate tagsForQuery:endHashTag];
-        //[self updateHashTagsTableViewControllerWithTags:hashTags];
     }
     else{
         self.hashTagsTableViewController.view.hidden = YES;

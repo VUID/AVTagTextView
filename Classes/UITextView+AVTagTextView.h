@@ -12,6 +12,12 @@
 #define DEFAULT_TABLE_VIEW_HEIGHT 100.
 #define DEFAULT_TABLE_VIEW_OFFSET 0.
 
+typedef enum {
+	AVTagTextViewAll,
+	AVTagTextViewHashtags,
+	AVTagTextViewTags
+} AVTagTextViewTagTypes;
+
 /*****************************************************/
 //             AVTagTextViewDelegate
 /*****************************************************/
@@ -25,7 +31,7 @@
  * the hashTagsTableViewController
  */
 - (NSArray *)tagsForQuery:(NSString *)query;
-- (void)performSearchForTextView:(UITextView *)textView query:(NSString *)query withCompletionHandler:(void (^)(NSArray *))completionHandler;
+- (void)performSearchForTextView:(UITextView *)textView type:(AVTagTextViewTagTypes)type query:(NSString *)query withCompletionHandler:(void (^)(NSArray *))completionHandler;
 @end
 
 /*****************************************************/

@@ -17,19 +17,24 @@
     return [self substringWithRange:NSMakeRange(result.range.location+1, result.range.length-1)];
 }
 
-+ (NSRegularExpression *)endOfStringHashtagRegex{
++ (NSRegularExpression *)endOfStringTagRegex{
     return [NSRegularExpression
-            regularExpressionWithPattern:@"#(\\w+)$"
+            regularExpressionWithPattern:@"^(#|@)(\\w+)$"
             options:NSRegularExpressionCaseInsensitive
             error:nil];
 }
 
-- (NSString *)endOfStringHashtag{
-    NSRegularExpression *regex = [NSString endOfStringHashtagRegex];
+- (NSDictionary *)endOfStringTag{
+    NSRegularExpression *regex = [NSString endOfStringTagRegex];
     NSTextCheckingResult *result = [regex firstMatchInString:self options:0 range:NSMakeRange(0, self.length)];
     if(result) {
-        NSString *match = [self substringWithRange:NSMakeRange(result.range.location+1, result.range.length-1)];
-        return match;
+		NSString *tagType = [self substringWithRange:NSMakeRange(result.range.location, 1)];
+		NSString *match = [self substringWithRange:NSMakeRange(result.range.location+1, result.range.length-1)];
+	
+		return @{
+				 @"type":tagType,
+				 @"tag":match
+				 };
     }
     return nil;
 }

@@ -9,11 +9,11 @@
 
 @interface NSString(AVTagAdditions)
 
-+ (NSRegularExpression *)endOfStringHashtagRegex;
++ (NSRegularExpression *)endOfStringTagRegex;
 
 - (NSRange)wholeStringRange;
 - (NSString *)stringWithCheckingResult:(NSTextCheckingResult *)result;
-- (NSString *)endOfStringHashtag;
+- (NSDictionary *)endOfStringTag;
 - (NSArray *)hashTags;
 - (NSArray *)tags;
 
