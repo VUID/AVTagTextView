@@ -31,13 +31,13 @@
     }
  }
  */
-@property (nonatomic, strong) NSArray *hashTagsToDisplay;
+@property (nonatomic, strong) NSArray *tagsToDisplay;
 
 /**
  * The delegate, which responds to the table view hash
  * tags related changes (f.e. hash tags selection). 
  * This is normally a UITextView+AVTagTextView instance
  */
-@property (nonatomic, weak) id<AVTagTableViewControllerDelegate> hashTagsDelegate;
+@property (nonatomic, weak) id<AVTagTableViewControllerDelegate> tagsDelegate;
 
 @end

@@ -139,7 +139,8 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
         [controller didMoveToParentViewController:rootViewController];
     }
     controller.view.hidden =  tags.count == 0;
-    controller.hashTagsToDisplay = tags;
+    controller.tagsToDisplay = tags;
+	
 }
 
 #pragma mark AVTagTableViewDelegate

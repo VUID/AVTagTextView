@@ -12,8 +12,8 @@
 @end
 
 @implementation AVHashTagsTableViewController
-@synthesize hashTagsDelegate = _hashTagsDelegate;
-@synthesize hashTagsToDisplay = _hashTagsToDisplay;
+@synthesize tagsDelegate = _tagsDelegate;
+@synthesize tagsToDisplay = _tagsToDisplay;
 
 /*****************************************************/
 #pragma mark - UIView Lifecycle
@@ -29,9 +29,9 @@
 #pragma mark - AVTagTableViewControllerProtocol
 /*****************************************************/
 
-- (void)setHashTagsToDisplay:(NSArray *)hashTagsToDisplay{
-    if(_hashTagsToDisplay != hashTagsToDisplay) {
-        _hashTagsToDisplay = hashTagsToDisplay;
+- (void)setTagsToDisplay:(NSArray *)tagsToDisplay{
+    if(_tagsToDisplay != tagsToDisplay) {
+        _tagsToDisplay = tagsToDisplay;
         [self.tableView reloadData];
     }
 }
@@ -45,7 +45,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.hashTagsToDisplay.count;
+    return self.tagsToDisplay.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -57,7 +57,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    NSString *tag = self.hashTagsToDisplay[indexPath.row];
+    NSString *tag = self.tagsToDisplay[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"#%@", tag];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -68,8 +68,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.hashTagsDelegate && [self.hashTagsDelegate respondsToSelector:@selector(hashTagSelected:)]){
-        [self.hashTagsDelegate hashTagSelected:self.hashTagsToDisplay[indexPath.row]];
+    if(self.tagsDelegate && [self.tagsDelegate respondsToSelector:@selector(hashTagSelected:)]){
+        [self.tagsDelegate hashTagSelected:self.tagsToDisplay[indexPath.row]];
     }
 }
 
