@@ -14,6 +14,7 @@
 @implementation AVHashTagsTableViewController
 @synthesize tagsDelegate = _tagsDelegate;
 @synthesize tagsToDisplay = _tagsToDisplay;
+@synthesize tagsToDisplayType = _tagsToDisplayType;
 
 /*****************************************************/
 #pragma mark - UIView Lifecycle
@@ -58,7 +59,9 @@
     }
     
     NSString *tag = self.tagsToDisplay[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"#%@", tag];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@%@",
+						   self.tagsToDisplayType==AVTagTextViewHashtags?@"#":@"@",
+						   tag];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;

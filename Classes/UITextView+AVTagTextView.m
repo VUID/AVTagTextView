@@ -41,7 +41,7 @@ static const char *kHashTagsTableViewControllerKey = "hashTagsTableViewControlle
 - (void)setHashTagsTableViewController:(UITableViewController<AVTagTableViewControllerProtocol> *)hashTagsTableViewController{
     if(self.hashTagsTableViewController != hashTagsTableViewController) {
         
-        hashTagsTableViewController.hashTagsDelegate = self;
+        hashTagsTableViewController.tagsDelegate = self;
         objc_setAssociatedObject(self, kHashTagsTableViewControllerKey, hashTagsTableViewController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
 }
@@ -51,7 +51,7 @@ static const char *kHashTagsTableViewControllerKey = "hashTagsTableViewControlle
     UITableViewController<AVTagTableViewControllerProtocol> *controller = objc_getAssociatedObject(self, kHashTagsTableViewControllerKey);
     if(!controller) {
         controller = [AVHashTagsTableViewController new];
-        controller.hashTagsDelegate = self;
+        controller.tagsDelegate = self;
         objc_setAssociatedObject(self, kHashTagsTableViewControllerKey, controller, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return controller;
@@ -127,7 +127,7 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
     }];
 }
 
-- (void)updateHashTagsTableViewControllerWithTags:(NSArray *)tags{
+- (void)updateHashTagsTableViewControllerWithTags:(NSArray *)tags andType:(AVTagTextViewTagTypes) type{
     UITableViewController<AVTagTableViewControllerProtocol> *controller = self.hashTagsTableViewController;
     
     //Add the controller to the current root view controller if it hasn't been added anywhere so far
@@ -140,7 +140,7 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
     }
     controller.view.hidden =  tags.count == 0;
     controller.tagsToDisplay = tags;
-	
+	controller.tagsToDisplayType = type;
 }
 
 #pragma mark AVTagTableViewDelegate
@@ -169,7 +169,7 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
        input.length > 0 &&
        [self.hashTagsDelegate respondsToSelector:@selector(performSearchForTextView:type:query:withCompletionHandler:)]) {
 		[self.hashTagsDelegate performSearchForTextView:self type:type query:tag withCompletionHandler:^(NSArray *results) {
-			[self updateHashTagsTableViewControllerWithTags:results];
+			[self updateHashTagsTableViewControllerWithTags:results andType:type];
 		}];
     }
     else{

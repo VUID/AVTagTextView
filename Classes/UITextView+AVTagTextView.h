@@ -12,12 +12,6 @@
 #define DEFAULT_TABLE_VIEW_HEIGHT 100.
 #define DEFAULT_TABLE_VIEW_OFFSET 0.
 
-typedef enum {
-	AVTagTextViewAll,
-	AVTagTextViewHashtags,
-	AVTagTextViewTags
-} AVTagTextViewTagTypes;
-
 /*****************************************************/
 //             AVTagTextViewDelegate
 /*****************************************************/

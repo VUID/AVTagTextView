@@ -7,6 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+	AVTagTextViewAll,
+	AVTagTextViewHashtags,
+	AVTagTextViewTags
+} AVTagTextViewTagTypes;
+
 @protocol AVTagTableViewControllerDelegate <NSObject>
 /**
  * Should be called when a tag cell is selected
@@ -32,6 +38,12 @@
  }
  */
 @property (nonatomic, strong) NSArray *tagsToDisplay;
+
+/**
+ * A enum to set the current tag type
+ *
+ */
+@property (assign) AVTagTextViewTagTypes tagsToDisplayType;
 
 /**
  * The delegate, which responds to the table view hash
