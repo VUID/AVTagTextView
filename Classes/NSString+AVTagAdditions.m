@@ -19,7 +19,7 @@
 
 + (NSRegularExpression *)endOfStringTagRegex{
     return [NSRegularExpression
-            regularExpressionWithPattern:@"^(#|@)(\\w+)$"
+            regularExpressionWithPattern:@"(@|#)(\\w+)$"
             options:NSRegularExpressionCaseInsensitive
             error:nil];
 }
