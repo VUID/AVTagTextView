@@ -17,7 +17,7 @@ typedef enum {
 /**
  * Should be called when a tag cell is selected
  */
-- (void)hashTagSelected:(NSString *)tag;
+- (void)tagSelected:(NSString *)tag andType:(AVTagTextViewTagTypes)type;
 @end
 
 @protocol AVTagTableViewControllerProtocol <NSObject>

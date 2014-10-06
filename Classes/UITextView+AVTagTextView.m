@@ -145,8 +145,11 @@ static const char *kHashTagsTableViewOffsetKey = "hashTagsTableViewOffsetKey";
 
 #pragma mark AVTagTableViewDelegate
 
-- (void)hashTagSelected:(NSString *)tag{
-    NSString *replaceString = [NSString stringWithFormat:@"#%@ ", tag];
+- (void)tagSelected:(NSString *)tag andType:(AVTagTextViewTagTypes)type{
+    NSString *replaceString = [NSString stringWithFormat:
+							   @"%@%@ ",
+							   type==AVTagTextViewHashtags?@"#":@"@",
+							   tag];
     NSMutableString *mutableText = [NSMutableString stringWithString:self.text];
     
     [[NSString endOfStringTagRegex] replaceMatchesInString:mutableText options:0 range:[self.text wholeStringRange] withTemplate:replaceString];

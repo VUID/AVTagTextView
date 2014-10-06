@@ -59,7 +59,8 @@
     }
     
     NSString *tag = self.tagsToDisplay[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@%@",
+    cell.textLabel.text = [NSString stringWithFormat:
+						   @"%@%@",
 						   self.tagsToDisplayType==AVTagTextViewHashtags?@"#":@"@",
 						   tag];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -71,8 +72,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.tagsDelegate && [self.tagsDelegate respondsToSelector:@selector(hashTagSelected:)]){
-        [self.tagsDelegate hashTagSelected:self.tagsToDisplay[indexPath.row]];
+    if(self.tagsDelegate && [self.tagsDelegate respondsToSelector:@selector(tagSelected:andType:)]){
+        [self.tagsDelegate tagSelected:self.tagsToDisplay[indexPath.row] andType:self.tagsToDisplayType];
     }
 }
 
